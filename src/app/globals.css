@@ -1,18 +1,6 @@
-/* src/styles/globals.css */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+/* src/app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-body {
-  font-family: 'Poppins', sans-serif;
-}
-
-.bg-blackish {
-  background-color: #111; /* Warna hitam yang sedikit lebih terang */
-}
-
-.text-redish {
-  color: #d00; /* Warna merah yang sedikit lebih redup */
-}
-
-#changing-text {
-  transition: opacity 1s ease-in-out;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');

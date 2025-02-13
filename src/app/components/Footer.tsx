@@ -16,8 +16,8 @@ const Footer = () => {
               <Image
                 src="/images/navigasi.svg" // Pastikan path gambar benar
                 alt="Peta Project"
-                width={180} // Sesuaikan dengan ukuran gambar
-                height={180} // Sesuaikan dengan ukuran gambar
+                width={350} // Sesuaikan dengan ukuran gambar
+                height={350} // Sesuaikan dengan ukuran gambar
                 style={{ marginBottom: '0rem' }}
               />
             </div>
@@ -27,17 +27,17 @@ const Footer = () => {
               <h3 className="text-lg font-bold mb-4">Kategori</h3>
               <ul className="text-sm space-y-2">
                 <li>
-                  <Link href="#" className="hover:text-red-600">
+                  <Link href="/berita" className="hover:text-red-600">
                     Berita
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-red-600">
+                  <Link href="/opini" className="hover:text-red-600">
                     Opini
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-red-600">
+                  <Link href="/podcast" className="hover:text-red-600">
                     Podcast
                   </Link>
                 </li>

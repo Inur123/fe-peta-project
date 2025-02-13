@@ -2,13 +2,18 @@
 "use client";
 import Link from 'next/link';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation'; // Import usePathname
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname(); // Ambil path saat ini
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  // Fungsi untuk menentukan apakah link sedang aktif
+  const isActive = (path: string) => pathname === path;
 
   return (
     <header
@@ -24,23 +29,25 @@ const Header = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
-          <div className="flex items-center">
-            <img
-              src="images/peta-logo.png"
-              alt="Liputan6 Logo"
-              className="h-12 mr-2"
-            />
-            <div className="flex items-center font-sub">
-              <div className="text-3xl font-bold text-[#be2c13] mr-2">Peta</div>
-              <div className="text-3xl font-bold text-white mr-2">Project</div>
-            </div>
-          </div>
+        <Link href="/" passHref>
+      <div className="flex items-center cursor-pointer">
+        <img
+          src="/images/peta-logo.png"
+          alt="Peta Project Logo"
+          className="h-12 mr-2"
+        />
+        <div className="flex items-center font-sub">
+          <div className="text-3xl font-bold text-[#be2c13] mr-2">Peta</div>
+          <div className="text-3xl font-bold text-white mr-2">Project</div>
+        </div>
+      </div>
+    </Link>
 
           {/* Tombol Menu Mobile */}
           <div className="md:hidden">
             <button
               id="menuBtn"
-              className="text-white hover:text-redish focus:outline-none"
+              className="text-white hover:text-red-600 focus:outline-none"
               onClick={toggleMobileMenu}
             >
               {/* Ikon Hamburger */}
@@ -78,16 +85,36 @@ const Header = () => {
 
           {/* Menu Desktop */}
           <div className="hidden md:flex space-x-4">
-            <Link href="#" className="text-gray-300 hover:text-redish">
+            <Link
+              href="/"
+              className={`text-gray-300 hover:text-red-600 ${
+                isActive('/') ? 'text-red-600' : ''
+              }`}
+            >
               Beranda
             </Link>
-            <Link href="#" className="text-gray-300 hover:text-redish">
+            <Link
+              href="/berita"
+              className={`text-gray-300 hover:text-red-600 ${
+                isActive('/berita') ? 'text-red-600' : ''
+              }`}
+            >
               Berita
             </Link>
-            <Link href="#" className="text-gray-300 hover:text-redish">
+            <Link
+              href="/opini"
+              className={`text-gray-300 hover:text-red-600 ${
+                isActive('/opini') ? 'text-red-600' : ''
+              }`}
+            >
               Opini
             </Link>
-            <Link href="#" className="text-gray-300 hover:text-redish">
+            <Link
+              href="/podcast"
+              className={`text-gray-300 hover:text-red-600 ${
+                isActive('/podcast') ? 'text-red-600' : ''
+              }`}
+            >
               Podcast
             </Link>
           </div>
@@ -99,16 +126,36 @@ const Header = () => {
         id="mobileMenu"
         className={`${isMobileMenuOpen ? 'block' : 'hidden'} md:hidden bg-blackish p-4`}
       >
-        <Link href="#" className="block text-gray-300 hover:text-redish py-2">
+        <Link
+          href="/"
+          className={`block text-gray-300 hover:text-red-600 py-2 ${
+            isActive('/') ? 'text-red-600' : ''
+          }`}
+        >
           Beranda
         </Link>
-        <Link href="#" className="block text-gray-300 hover:text-redish py-2">
+        <Link
+          href="/berita"
+          className={`block text-gray-300 hover:text-red-600 py-2 ${
+            isActive('/berita') ? 'text-red-600' : ''
+          }`}
+        >
           Berita
         </Link>
-        <Link href="#" className="block text-gray-300 hover:text-redish py-2">
+        <Link
+          href="/opini"
+          className={`block text-gray-300 hover:text-red-600 py-2 ${
+            isActive('/opini') ? 'text-red-600' : ''
+          }`}
+        >
           Opini
         </Link>
-        <Link href="#" className="block text-gray-300 hover:text-redish py-2">
+        <Link
+          href="/podcast"
+          className={`block text-gray-300 hover:text-red-600 py-2 ${
+            isActive('/podcast') ? 'text-red-600' : ''
+          }`}
+        >
           Podcast
         </Link>
       </div>
