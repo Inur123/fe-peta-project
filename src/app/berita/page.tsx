@@ -1,7 +1,10 @@
 "use client";
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import Layout from '../components/Layout';
+
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Layout from "../components/Layout";
+import Loading from "../components/Loading"; // Import komponen Loading
 
 const BeritaPage = () => {
   const [data, setData] = useState<any[]>([]);
@@ -11,9 +14,9 @@ const BeritaPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://achieved.zainur.my.id/api/berita');
+        const response = await fetch("http://achieved.zainur.my.id/api/berita");
         if (!response.ok) {
-          throw new Error('Gagal mengambil data');
+          throw new Error("Gagal mengambil data");
         }
         const result = await response.json();
         setData(result);
@@ -27,8 +30,19 @@ const BeritaPage = () => {
     fetchData();
   }, []);
 
-  if (loading) return <p>Memuat...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) {
+    return <Loading />; // Tampilkan spinner saat loading
+  }
+
+  if (error) {
+    return (
+      <Layout>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-red-600">Error: {error}</p>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
@@ -52,7 +66,9 @@ const BeritaPage = () => {
                 <div className="p-4 flex-grow">
                   <div className="flex items-center justify-between mb-2">
                     <div>
-                      <span className="text-gray-500 text-xs">Penulis: {post.author_id}</span>
+                      <span className="text-gray-500 text-xs">
+                        Penulis: {post.author_id}
+                      </span>
                     </div>
                     <div>
                       <span className="text-gray-500 text-xs">
@@ -61,7 +77,10 @@ const BeritaPage = () => {
                     </div>
                   </div>
                   <h3 className="font-bold mb-2">{post.title}</h3>
-                  <p className="text-gray-600 text-sm" dangerouslySetInnerHTML={{ __html: post.excerpt }} />
+                  <p
+                    className="text-gray-600 text-sm"
+                    dangerouslySetInnerHTML={{ __html: post.excerpt }}
+                  />
                 </div>
               </div>
             </Link>

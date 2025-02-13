@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Layout from '../components/Layout';
+import Loading from '../components/Loading'; // Import komponen Loading
 
 const PodcastPage = () => {
   const [data, setData] = useState<any[]>([]);
@@ -27,8 +28,19 @@ const PodcastPage = () => {
     fetchData();
   }, []);
 
-  if (loading) return <p>Memuat...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) {
+    return <Loading />; // Tampilkan spinner saat loading
+  }
+
+  if (error) {
+    return (
+      <Layout>
+        <div className="flex justify-center items-center h-screen">
+          <p className="text-red-600">Error: {error}</p>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
