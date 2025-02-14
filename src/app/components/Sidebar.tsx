@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { API_ENDPOINTS, IMAGE_URLS } from '../../config/api'; // Import konfigurasi API dan gambar
 
 const Sidebar = () => {
   const [data, setData] = useState<any>(null);
@@ -10,7 +11,7 @@ const Sidebar = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://achieved.zainur.my.id/api/home');
+         const response = await fetch(API_ENDPOINTS.HOME); // Gunakan URL dari konfigurasi
         if (!response.ok) {
           throw new Error('Gagal mengambil data');
         }
@@ -38,7 +39,7 @@ const Sidebar = () => {
           {data.iklan.map((iklan: any) => (
             <li key={iklan.id} className="flex items-center justify-center">
               <img
-                src={`http://achieved.zainur.my.id/storage/${iklan.image}`}
+                src={`${IMAGE_URLS.IKLAN}${iklan.image}`}
                 alt={iklan.name}
                 className="rounded-lg object-contain"
                 style={{ width: '400px', height: '400px' }}
@@ -77,7 +78,7 @@ const Sidebar = () => {
             <Link href={`/berita/${post.slug}`} key={post.id} passHref>
               <li className="flex items-center p-2 rounded-lg hover:bg-gray-100 transition-all duration-300 cursor-pointer">
                 <img
-                  src={`http://achieved.zainur.my.id/storage/${post.thumbnail}`}
+                src={`${IMAGE_URLS.THUMBNAIL}${post.thumbnail}`}
                   alt={post.title}
                   className="w-10 h-10 mr-4 rounded-lg"
                 />

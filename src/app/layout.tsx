@@ -16,7 +16,7 @@ export default function RootLayout({
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Liputan6-like News Portal</title>
+        <title>Peta Project</title>
         <link rel="icon" href="images/peta-logo.png" />
         <link rel="shortcut icon" href="images/peta-logo.png" />
         <link rel="apple-touch-icon" href="images/peta-logo.png" />

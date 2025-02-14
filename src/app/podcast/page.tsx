@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Layout from '../components/Layout';
 import Loading from '../components/Loading'; // Import komponen Loading
+import { API_ENDPOINTS, IMAGE_URLS } from '../../config/api';
 
 const PodcastPage = () => {
   const [data, setData] = useState<any[]>([]);
@@ -12,7 +13,7 @@ const PodcastPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://achieved.zainur.my.id/api/podcast');
+        const response = await fetch(API_ENDPOINTS.PODCAST);
         if (!response.ok) {
           throw new Error('Gagal mengambil data');
         }
@@ -27,6 +28,15 @@ const PodcastPage = () => {
 
     fetchData();
   }, []);
+
+  // Fungsi untuk memotong teks menjadi maksimal 45 kata
+  const truncateExcerpt = (text: string, maxWords: number) => {
+    const words = text.split(' ');
+    if (words.length > maxWords) {
+      return words.slice(0, maxWords).join(' ') + '...';
+    }
+    return text;
+  };
 
   if (loading) {
     return <Loading />; // Tampilkan spinner saat loading
@@ -54,7 +64,7 @@ const PodcastPage = () => {
             <Link href={`/podcast/${post.slug}`} key={post.id} passHref>
               <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col relative border border-gray-300 hover:border-red-600 transition-all duration-300 cursor-pointer">
                 <img
-                  src={`http://achieved.zainur.my.id/storage/${post.thumbnail}`}
+                  src={`${IMAGE_URLS.THUMBNAIL}${post.thumbnail}`}
                   alt={post.title}
                   className="w-full h-48 object-cover"
                 />
@@ -73,7 +83,10 @@ const PodcastPage = () => {
                     </div>
                   </div>
                   <h3 className="font-bold mb-2">{post.title}</h3>
-                  <p className="text-gray-600 text-sm" dangerouslySetInnerHTML={{ __html: post.excerpt }} />
+                  <p
+                    className="text-gray-600 text-sm"
+                    dangerouslySetInnerHTML={{ __html: truncateExcerpt(post.content, 45) }} // Batasi excerpt menjadi 45 kata
+                  />
                 </div>
               </div>
             </Link>
